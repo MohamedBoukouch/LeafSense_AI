@@ -6,32 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
 class Controller {
-  Future<String> getEventId(String image) async {
-    var url = Uri.parse("https://khadijaasehnoune12-orange-disease-classifier.hf.space/call/predict");
-    Map<String, dynamic> data = {
-      "data": [
-        {
-          "path":image,
-        }
-      ]
-    };
-
-    final response = await http.post(
-      url,
-      headers: {
-        'Content-Type': 'application/json', // Set content type to JSON
-      },
-      body: jsonEncode(data), // Encode the body data as JSON
-    );
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
-      String eventId = jsonResponse['event_id'];
-      return eventId;
-    } else {
-      throw Exception('Failed to fetch data');
-    }
-  }
 
   Future<String> getResultat(String eventId) async {
     var url = Uri.parse("https://khadijaasehnoune12-orange-disease-classifier.hf.space/call/predict/$eventId");

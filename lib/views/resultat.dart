@@ -81,22 +81,6 @@ class _ResultatState extends State<Resultat> {
     }
   }
 
-  Future<void> sendResultToApi(String result) async {
-    final url = Uri.parse('https://ashnoune.000webhostapp.com/updateResultat.php');
-    final response = await http.post(
-      url,
-      body: {
-        'resultat':  result,
-        'imagepath': widget.path,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      print('Result sent to API successfully');
-    } else {
-      print('Failed to send result to API: ${response.statusCode}');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

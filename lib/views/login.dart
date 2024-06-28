@@ -15,38 +15,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
 
-  Future<void> _sendEmail() async {
-    final response = await http.post(
-      Uri.parse('https://ashnoune.000webhostapp.com/login.php'),
-      body: {
-        'email': _emailController.text,
-      },
-    );
 
-    if (response.statusCode == 200) {
-      final responseData = json.decode(response.body);
-      if (responseData['status'] == 'success') {
-        // Assuming user ID is returned in the response. If not, adjust accordingly.
-        // final String userId = _emailController.text; // Replace this with actual user ID if available in response.
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('user_id', _emailController.text);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeView()),
-        );
-      } else {
-        // Handle failure (e.g., show an error message)
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to send email: ${responseData['email']}')),
-        );
-      }
-    } else {
-      // Handle error (e.g., show an error message)
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to connect to the server')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
